@@ -1,0 +1,18 @@
+class LoginPage(BasePage): 
+ #定位器，通过元素属性定位元素对象 
+    uname_loc=(By.NAME,'email') 
+    pwd_loc=(By.NAME,'PWD') 
+    submit_loc = (By.ID, 'dologin') 
+    span_loc = (By.CSS_SELECTOR, "div.error-tt>p") 
+    userid_loc = (By.ID, "spnUid") 
+`` 
+    #使用Overiding继承覆盖：如果父子类有一样名的方法，优先使用子类自己的方法
+
+#调用BasePage中的_open打开链接 
+    def open(self): 
+     self._open(self.base_url,self.title)
+
+#输入用户名，调用find_element方法，输入用户名 
+   def input_uname(self,uname): 
+     self.find_element(*self.uname_loc).send_keys(uname)
+
