@@ -18,13 +18,11 @@ class TestLogin(unittest.TestCase):
         self.accept_next_alert = True
         driver = self.driver
         driver.get("https://www.bellcode.com/#/")
-        driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)='首页'])[1]/preceding::div[1]").click()
-        driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)='扫码登录'])[1]/following::div[1]").click()
-        driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)='账号登录'])[1]/following::input[1]").click()
-        driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)='账号登录'])[1]/following::input[1]").clear()
-        driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)='账号登录'])[1]/following::input[1]").send_keys("jaydan")
-        driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)='账号登录'])[1]/following::input[2]").clear()
-        driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)='账号登录'])[1]/following::input[2]").send_keys("111111")
+        driver.find_element_by_class_name("user-info").click()
+        driver.implicitly_wait(1)
+        driver.find_element_by_xpath('//*[@id="app"]/div/div/div[7]/div/div/div[1]/div[2]').click()
+        driver.find_element_by_xpath('//*[@id="app"]/div/div/div[7]/div/div/div[2]/div[1]/input').send_keys("jaydan")
+        driver.find_element_by_xpath('//*[@id="app"]/div/div/div[7]/div/div/div[2]/div[2]/input').send_keys("111111")
         driver.find_element_by_link_text(u"登录").click()
         driver.implicitly_wait(2)
         driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)='账号登录'])[1]/following::div[3]").click()
