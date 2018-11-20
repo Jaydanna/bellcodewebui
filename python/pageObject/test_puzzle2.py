@@ -32,11 +32,14 @@ class TestPuzzle2(unittest.TestCase):
         driver.get("https://ide.bellcode.com/puzzle2?pid=263&actid=3254&classid=439&package_id=69&lessonid=294&cburl=https%3A%2F%2Fwww.bellcode.com%2F%23%2Fcm%2Fstu_lesson_map%2F%3Fpackage_id%3D69%26lesson_id%3D294%26class_id%3D439")
         time.sleep(5)
         driver.find_element_by_link_text(u"跳过").click()
-        # failed...↓
-        move = driver.find_element_by_xpath('//*[@id="blocks"]/div[1]/svg[4]/g/g[1]/g/path[1]')
-        when_click = driver.find_element_by_xpath('//*[@id="blocks"]/div[1]/svg[1]/g/g[1]/g/path')
+        when_click = driver.find_element_by_css_selector('#blocks > div.injectionDiv > svg.blocklySvg > g > g.blocklyBlockCanvas')
+        move = driver.find_element_by_css_selector('#blocks > div.injectionDiv > svg.blocklyFlyout > g > g.blocklyBlockCanvas > g')
         print (move.text,when_click.text)
-        ActionChains(driver).click_and_hold(move).move_to_element(when_click)
+        number = driver.find_element_by_link_text("10")
+        number.send_keys("100")
+        ActionChains(driver).drag_and_drop(move,when_click).perform()
+        time.sleep(10)
+      
 
 
 
