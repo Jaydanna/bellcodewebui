@@ -19,9 +19,11 @@ class TestPuzzle2(unittest.TestCase):
         self.accept_next_alert = True
         driver = self.driver
         driver.get("https://www.bellcode.com/#/")
+        driver.implicitly_wait(30)
         driver.find_element_by_class_name("user-info").click()
-        driver.implicitly_wait(1)
+        driver.implicitly_wait(5)
         driver.find_element_by_xpath('//*[@id="app"]/div/div/div[7]/div/div/div[1]/div[2]').click()
+        driver.implicitly_wait(10)
         driver.find_element_by_xpath('//*[@id="app"]/div/div/div[7]/div/div/div[2]/div[1]/input').send_keys("jaydan")
         driver.find_element_by_xpath('//*[@id="app"]/div/div/div[7]/div/div/div[2]/div[2]/input').send_keys("111111")
         driver.find_element_by_link_text(u"登录").click()
@@ -34,11 +36,23 @@ class TestPuzzle2(unittest.TestCase):
         driver.find_element_by_link_text(u"跳过").click()
         when_click = driver.find_element_by_css_selector('#blocks > div.injectionDiv > svg.blocklySvg > g > g.blocklyBlockCanvas')
         move = driver.find_element_by_css_selector('#blocks > div.injectionDiv > svg.blocklyFlyout > g > g.blocklyBlockCanvas > g')
-        print (move.text,when_click.text)
-        number = driver.find_element_by_link_text("10")
-        number.send_keys("100")
-        ActionChains(driver).drag_and_drop(move,when_click).perform()
+        
+        # fail。。。。↓
+        # number = driver.find_element_by_xpath("//*[@id='blocks']/div[1]/*[name()='svg'][4]/*[name()='g']/*[name()='g'][1]/*[name()='g']/*[name()='g'][2]/*[name()='g']")
+        # # number.click()
+        # print (number.text)
+        # number.send_keys("100")
+        when_click_xy = when_click.location
+        move_xy = move.location
+        action = ActionChains(driver)
+        action.drag_and_drop_by_offset(move,when_click_xy['x'],when_click_xy['y'])
+        action.perform()
         time.sleep(10)
+        # action.release(move)
+        
+       
+        print (when_click_xy,move_xy)
+        # self.assertEquals(when_click_xy,move_xy)
       
 
 

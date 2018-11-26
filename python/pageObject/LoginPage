@@ -4,7 +4,7 @@ import unittest
 
 class LoginPage(BasePage): 
  #定位器，通过元素属性定位元素对象 
-    By = find_element_by
+  
     uname_loc=(By.NAME,'email') 
     pwd_loc=(By.NAME,'PWD') 
     submit_loc = (By.ID, 'dologin') 
